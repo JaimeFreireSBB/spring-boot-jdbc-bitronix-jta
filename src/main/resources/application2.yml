@@ -23,9 +23,15 @@ datasource:
     username: <user>
     password: <password>
 
+bitronix.tm:
+  serverId: myapp
+  journal.disk:
+    logPart1Filename:
+    logPart2Filename:
 
 #logging.level.org.springframework.jdbc.datasource: DEBUG
 #logging.level.org.springframework.transaction: DEBUG
 #logging.level.org.springframework.transaction.interceptor: TRACE
 
 logging.level.bitronix: DEBUG
+logging.level.org.springframework.jdbc.core: DEBUG

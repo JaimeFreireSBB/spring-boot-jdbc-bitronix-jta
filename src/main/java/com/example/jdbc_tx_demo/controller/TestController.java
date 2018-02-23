@@ -39,8 +39,8 @@ public class TestController {
         long pid = Thread.currentThread().getId();
         log.info("\n\n\n\n==== Start PID {} ====\n", pid);
         
-        service.randomInsert();
-        
+        service.randomInsert2();
+
         log.info("\n\n\n\n==== End PID {} ====\n", pid);
         return "PID = " + pid;
     }

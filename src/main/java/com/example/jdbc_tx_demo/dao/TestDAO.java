@@ -61,11 +61,15 @@ public abstract class TestDAO {
     @Transactional
     public int insertOneWithTransaction(String value) {
         log.info("insert one row in transaction on {}", jdbcTemplate.getDataSource());
-        return jdbcTemplate.update("INSERT INTO JDBC_TEST VALUES ( ? )", value);
+        int updateCount = jdbcTemplate.update("INSERT INTO JDBC_TEST VALUES ( ? )", value);
+        log.info("insert one row in transaction on {} completed", jdbcTemplate.getDataSource());
+        return updateCount;
     }
 
     public int insertOne(String value) {
         log.info("insert one row on {}", jdbcTemplate.getDataSource());
-        return jdbcTemplate.update("INSERT INTO JDBC_TEST VALUES ( ? )", value);
+        int updateCount = jdbcTemplate.update("INSERT INTO JDBC_TEST VALUES ( ? )", value);
+        log.info("insert one row on {} completed", jdbcTemplate.getDataSource());
+        return updateCount;
     }
 }

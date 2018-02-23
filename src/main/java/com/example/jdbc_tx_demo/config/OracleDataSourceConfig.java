@@ -41,18 +41,18 @@ public class OracleDataSourceConfig {
     }
 
 //    @Bean(name = "oracleXADataSource", destroyMethod = "close")
-//    public DataSource getXADataSource() {
-//         PoolingDataSource poolingDataSource = new PoolingDataSource();
-//         poolingDataSource.setClassName(oracle.jdbc.xa.client.OracleXADataSource.class.getName());
-//         poolingDataSource.setUniqueName("oracleXADataSource");
-//         Properties props = new Properties();
-//         props.put("URL", url);
-//         props.put("user", username);
-//         props.put("password", password);
-//         poolingDataSource.setDriverProperties(props);
-//         poolingDataSource.setAllowLocalTransactions(true);
-//         poolingDataSource.setMaxPoolSize(this.maxPoolSize);
-//         poolingDataSource.init();
-//         return poolingDataSource;
-//    }
+    public DataSource getXADataSource() {
+         PoolingDataSource poolingDataSource = new PoolingDataSource();
+         poolingDataSource.setClassName(oracle.jdbc.xa.client.OracleXADataSource.class.getName());
+         poolingDataSource.setUniqueName("oracleXADataSource");
+         Properties props = new Properties();
+         props.put("URL", url);
+         props.put("user", username);
+         props.put("password", password);
+         poolingDataSource.setDriverProperties(props);
+         poolingDataSource.setAllowLocalTransactions(true);
+         poolingDataSource.setMaxPoolSize(this.maxPoolSize);
+         poolingDataSource.init();
+         return poolingDataSource;
+    }
 }

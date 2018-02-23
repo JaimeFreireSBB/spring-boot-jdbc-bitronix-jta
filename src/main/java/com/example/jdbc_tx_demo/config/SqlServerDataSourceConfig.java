@@ -33,16 +33,16 @@ public class SqlServerDataSourceConfig {
     }
 
 //    @Bean(name = "sqlServerXADataSource", destroyMethod = "close")
-//    public DataSource getXADataSource() {
-//        PoolingDataSource poolingDataSource = new PoolingDataSource();
-//        poolingDataSource.setClassName(com.microsoft.sqlserver.jdbc.SQLServerXADataSource.class.getName());
-//        poolingDataSource.setUniqueName("sqlServerXADataSource");
-//        Properties props = new Properties();
-//        props.put("URL", url);
-//        poolingDataSource.setDriverProperties(props);
-//        poolingDataSource.setAllowLocalTransactions(true);
-//        poolingDataSource.setMaxPoolSize(this.maxPoolSize);
-//        poolingDataSource.init();
-//        return poolingDataSource;
-//    }
+    public DataSource getXADataSource() {
+        PoolingDataSource poolingDataSource = new PoolingDataSource();
+        poolingDataSource.setClassName(com.microsoft.sqlserver.jdbc.SQLServerXADataSource.class.getName());
+        poolingDataSource.setUniqueName("sqlServerXADataSource");
+        Properties props = new Properties();
+        props.put("URL", url);
+        poolingDataSource.setDriverProperties(props);
+        poolingDataSource.setAllowLocalTransactions(true);
+        poolingDataSource.setMaxPoolSize(this.maxPoolSize);
+        poolingDataSource.init();
+        return poolingDataSource;
+    }
 }
