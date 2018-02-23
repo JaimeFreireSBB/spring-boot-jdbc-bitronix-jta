@@ -1,0 +1,31 @@
+#
+# rename this file to application.yml before build/run
+#
+
+
+datasource:
+
+  # H2
+  h2:
+    url: jdbc:h2:file:~/test
+    username: sa
+    password:
+
+  # SQLServer
+  sqlserver:
+    driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    url: jdbc:sqlserver://<host>:<port>;databaseName=<database_name>;user=<user>;password=<password>;
+
+  # Oracle
+  oracle:
+    driverClassName: oracle.jdbc.OracleDriver
+    url: jdbc:oracle:thin:@<host>:<port>:<database_name>
+    username: <user>
+    password: <password>
+
+
+#logging.level.org.springframework.jdbc.datasource: DEBUG
+#logging.level.org.springframework.transaction: DEBUG
+#logging.level.org.springframework.transaction.interceptor: TRACE
+
+logging.level.bitronix: DEBUG

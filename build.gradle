@@ -1,0 +1,54 @@
+buildscript {
+	ext {
+		springBootVersion = '1.5.8.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+}
+
+
+dependencies {
+
+    compile('org.springframework.boot:spring-boot-starter-web')
+    compile('org.springframework.boot:spring-boot-starter-web-services')
+    
+    compile('javax.inject:javax.inject:1')
+
+	compile('org.springframework.boot:spring-boot-starter-jdbc')
+	
+	compile('org.springframework.boot:spring-boot-starter-jta-bitronix')
+	
+	// Database Drivers
+	runtime('org.apache.derby:derby')
+    runtime('com.h2database:h2')
+    runtime('org.hsqldb:hsqldb')
+	//runtime('mysql:mysql-connector-java') // mysql
+	//runtime('org.postgresql:postgresql') // postgresql
+	//runtime('com.microsoft.sqlserver:mssql-jdbc') // mssql
+	
+    //compile files('libs/ojdbc14-10.2.0.5.jar') // Oracle 10g (10.2.0.5) for Java1.4
+    compile files('libs/ojdbc8-12.2.0.1.jar') // Oracle 12g (12.2.0.1) for Java8
+    compile files('libs/sqljdbc4.jar') // mssql 2000
+
+	// actuator
+    //compile('org.springframework.boot:spring-boot-starter-actuator')
+
+	compileOnly('org.projectlombok:lombok')
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+}
