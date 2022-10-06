@@ -1,42 +1,44 @@
 package com.example.jdbc_tx_demo;
 
-import static org.junit.Assert.*;
-
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import com.example.jdbc_tx_demo.dao.TestDAO;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 import org.springframework.dao.DuplicateKeyException;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.TransactionCallbackWithoutResult;
 import org.springframework.transaction.support.TransactionTemplate;
 
-import com.example.jdbc_tx_demo.dao.TestDAO;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest
 public abstract class TransactionTest {
 
     @Autowired
     private ApplicationContext context;
 
-    private TestDAO dao;
+    private static TestDAO dao;
 
     public void setDao(TestDAO dao) {
-        this.dao = dao;
+        TransactionTest.dao = dao;
     }
 
-    @Before
+    @BeforeEach
     public void before() {
         dao.createSchema();
     }
 
-    @After
+    @AfterEach
     public void after() {
         dao.dropSchema();
     }
@@ -59,7 +61,7 @@ public abstract class TransactionTest {
             }
         });
 
-        assertEquals("transaction not rollback", 0, dao.selectAll());
+        assertEquals(0, dao.selectAll(), "transaction not rollback");
     }
 
     @Test
@@ -82,7 +84,7 @@ public abstract class TransactionTest {
             }
         });
 
-        assertEquals("transaction not rollback", 0, dao.selectAll());
+        assertEquals(0, dao.selectAll(), "transaction not rollback");
     }
 
     @Test
@@ -101,7 +103,7 @@ public abstract class TransactionTest {
         });
 
         assertEquals(2, dao.selectAll());
-        
+
         transactionTemplate.execute(new TransactionCallbackWithoutResult() {
             protected void doInTransactionWithoutResult(TransactionStatus status) {
                 assertEquals(2, dao.selectAll());
@@ -110,9 +112,9 @@ public abstract class TransactionTest {
                 assertEquals(4, dao.selectAll());
             }
         });
-        
+
         assertEquals(4, dao.selectAll());
-        
+
         transactionTemplate.execute(new TransactionCallbackWithoutResult() {
             protected void doInTransactionWithoutResult(TransactionStatus status) {
                 status.setRollbackOnly();
@@ -123,7 +125,7 @@ public abstract class TransactionTest {
                 assertEquals(6, dao.selectAll());
             }
         });
-        
+
         assertEquals(4, dao.selectAll());
     }
 }

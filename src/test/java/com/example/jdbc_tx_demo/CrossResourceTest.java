@@ -1,17 +1,20 @@
 package com.example.jdbc_tx_demo;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.UncategorizedSQLException;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.TransactionCallbackWithoutResult;
@@ -21,7 +24,7 @@ import com.example.jdbc_tx_demo.dao.SqlServerDAOImpl;
 import com.example.jdbc_tx_demo.dao.H2DAOImpl;
 import com.example.jdbc_tx_demo.dao.OracleDAOImpl;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class CrossResourceTest {
 
@@ -37,13 +40,13 @@ public class CrossResourceTest {
     @Autowired
     private H2DAOImpl h2Dao;
 
-    @Before
+    @BeforeEach
     public void before() {
         mssqlDao.createSchema();
         h2Dao.createSchema();
     }
 
-    @After
+    @AfterEach
     public void after() {
         mssqlDao.dropSchema();
         h2Dao.dropSchema();

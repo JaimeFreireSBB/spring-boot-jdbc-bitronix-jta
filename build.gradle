@@ -1,6 +1,6 @@
 buildscript {
 	ext {
-		springBootVersion = '1.5.8.RELEASE'
+		springBootVersion = '2.7.4'
 	}
 	repositories {
 		mavenCentral()
@@ -11,12 +11,12 @@ buildscript {
 }
 
 apply plugin: 'java'
-apply plugin: 'eclipse'
+apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = 1.8
+sourceCompatibility = 11
 
 repositories {
 	mavenCentral()
@@ -25,30 +25,57 @@ repositories {
 
 dependencies {
 
-    compile('org.springframework.boot:spring-boot-starter-web')
-    compile('org.springframework.boot:spring-boot-starter-web-services')
-    
-    compile('javax.inject:javax.inject:1')
+// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.7.4'
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web-services', version: '2.7.4'
 
-	compile('org.springframework.boot:spring-boot-starter-jdbc')
-	
-	compile('org.springframework.boot:spring-boot-starter-jta-bitronix')
+	// https://mvnrepository.com/artifact/javax.inject/javax.inject
+	implementation group: 'javax.inject', name: 'javax.inject', version: '1'
+
+// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-jdbc
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-jdbc', version: '2.7.4'
+
+
+// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-jta-bitronix
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-jta-bitronix', version: '2.4.13'
+
 	
 	// Database Drivers
-	runtime('org.apache.derby:derby')
-    runtime('com.h2database:h2')
-    runtime('org.hsqldb:hsqldb')
+// https://mvnrepository.com/artifact/org.apache.derby/derby
+	implementation group: 'org.apache.derby', name: 'derby', version: '10.16.1.1'
+
+// https://mvnrepository.com/artifact/com.h2database/h2
+	implementation group: 'com.h2database', name: 'h2', version: '2.1.214'
+
+// https://mvnrepository.com/artifact/org.hsqldb/hsqldb
+	implementation group: 'org.hsqldb', name: 'hsqldb', version: '2.7.0'
+
 	//runtime('mysql:mysql-connector-java') // mysql
 	//runtime('org.postgresql:postgresql') // postgresql
 	//runtime('com.microsoft.sqlserver:mssql-jdbc') // mssql
 	
     //compile files('libs/ojdbc14-10.2.0.5.jar') // Oracle 10g (10.2.0.5) for Java1.4
-    compile files('libs/ojdbc8-12.2.0.1.jar') // Oracle 12g (12.2.0.1) for Java8
-    compile files('libs/sqljdbc4.jar') // mssql 2000
+	implementation files('libs/ojdbc8-12.2.0.1.jar') // Oracle 12g (12.2.0.1) for Java8
+	implementation files('libs/sqljdbc4.jar') // mssql 2000
 
 	// actuator
     //compile('org.springframework.boot:spring-boot-starter-actuator')
 
-	compileOnly('org.projectlombok:lombok')
-	testCompile('org.springframework.boot:spring-boot-starter-test')
+	// https://mvnrepository.com/artifact/org.projectlombok/lombok
+	compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.24'
+	annotationProcessor 'org.projectlombok:lombok:1.18.24'
+
+
+// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-test
+	testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '2.7.4'
+
+	testImplementation(platform('org.junit:junit-bom:5.9.1'))
+	testImplementation('org.junit.jupiter:junit-jupiter')
+}
+
+test {
+	useJUnitPlatform()
+	testLogging {
+		events "passed", "skipped", "failed"
+	}
 }

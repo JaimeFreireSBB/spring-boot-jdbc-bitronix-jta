@@ -14,20 +14,22 @@ datasource:
   # SQLServer
   sqlserver:
     driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-    url: jdbc:sqlserver://<host>:<port>;databaseName=<database_name>;user=<user>;password=<password>;
+    url: jdbc:sqlserver://localhost:1433;databaseName=TestDB;user=SA;password=<YourStrong@Passw0rd>;
 
   # Oracle
   oracle:
     driverClassName: oracle.jdbc.OracleDriver
-    url: jdbc:oracle:thin:@<host>:<port>:<database_name>
-    username: <user>
-    password: <password>
+    url: jdbc:oracle:thin:@//localhost:1521/NETS_LOCAL
+    #      jdbc:oracle:thin:@//HOSTNAME:PORT/SERVICENAME
+    # example: jdbc.url=jdbc:oracle:thin:@//dfw-vu-devodb1.uat.svbank.com:1526/DEVOPSPOCDB
+    username: NETS
+    password: password
 
 bitronix.tm:
   serverId: myapp
   journal.disk:
-    logPart1Filename:
-    logPart2Filename:
+    logPart1Filename: logPart1Filename
+    logPart2Filename: logPart2Filename
 
 #logging.level.org.springframework.jdbc.datasource: DEBUG
 #logging.level.org.springframework.transaction: DEBUG

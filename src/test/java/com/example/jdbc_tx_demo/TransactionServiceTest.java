@@ -1,20 +1,22 @@
 package com.example.jdbc_tx_demo;
 
-import static org.junit.Assert.*;
-
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.dao.DuplicateKeyException;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import com.example.jdbc_tx_demo.dao.H2DAOImpl;
 import com.example.jdbc_tx_demo.service.TestService;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.DuplicateKeyException;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@RunWith(SpringRunner.class)
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+@ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class TransactionServiceTest {
 
@@ -24,12 +26,12 @@ public class TransactionServiceTest {
     @Autowired
     private H2DAOImpl dao;
     
-    @Before
+    @BeforeEach
     public void before() {
         dao.createSchema();
     }
 
-    @After
+    @AfterEach
     public void after() {
         dao.dropSchema();
     }

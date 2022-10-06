@@ -4,6 +4,7 @@ import java.util.Properties;
 
 import javax.sql.DataSource;
 
+import org.h2.jdbcx.JdbcDataSource;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,7 +30,7 @@ public class H2DataSourceConfig {
     @Bean(name = "h2DataSource", destroyMethod = "close")
     public DataSource getDataSource() {
         PoolingDataSource poolingDataSource = new PoolingDataSource();
-        poolingDataSource.setClassName(org.h2.jdbcx.JdbcDataSource.class.getName());
+        poolingDataSource.setClassName(JdbcDataSource.class.getName());
         poolingDataSource.setUniqueName("h2DataSource");
 
         Properties props = new Properties();
